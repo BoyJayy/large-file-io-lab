@@ -1,6 +1,5 @@
 #include <largeio/file_utils.hpp>
 //#define vec vector
-namespace fs =  std::filesystem;
 
 namespace largeio {
 
