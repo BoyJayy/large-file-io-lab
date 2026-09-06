@@ -23,6 +23,16 @@ target_include_directories(largeio
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+if(MSVC)
+    target_compile_options(largeio PRIVATE /W4)
+else()
+    target_compile_options(largeio PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+    )
+endif()
+
 add_executable(largeio_smoke
     src/main.cpp
 )
