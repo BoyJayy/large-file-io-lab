@@ -3,7 +3,7 @@
 
 namespace largeio {
 
-bool is_regular_file(const fs::path path) {
+bool is_regular_file(const fs::path& path) {
     return fs::exists(path) && fs::is_regular_file(path);
 }
 
