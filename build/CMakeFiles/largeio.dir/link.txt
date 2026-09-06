@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblargeio.a CMakeFiles/largeio.dir/src/file_utils.cpp.o
+/usr/bin/ranlib liblargeio.a
