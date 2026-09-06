@@ -25,6 +25,10 @@ std::uint64_t checksum_ifstream(const fs::path& path, std::size_t block_size) {
         std::cerr << "Error: " << path << " is not a regular file.\n";
         return 0;
     }
+    if (block_size == 0) {
+        std::cerr << "Error: block_size must be greater than 0.\n";
+        return 0;
+    }
     std::ifstream in(path, std::ios::binary);
     if (!in) {
         std::cerr << "Error opening file: " << path << '\n';
@@ -39,6 +43,36 @@ std::uint64_t checksum_ifstream(const fs::path& path, std::size_t block_size) {
             checksum += static_cast<unsigned char>(buffer[static_cast<std::size_t>(i)]);
         }
     }
+    return checksum;
+}
+
+std::uint64_t checksum_fd(const fs::path& path, std::size_t block_size) {
+    if (!largeio::is_regular_file(path)) {
+        std::cerr << "Error: " << path << " is not a regular file.\n";
+        return 0;
+    }
+    if (block_size == 0) {
+        std::cerr << "Error: block_size must be greater than 0.\n";
+        return 0;
+    }
+    int fd=::open(path.c_str(), O_RDONLY);
+    if (fd == -1) {
+        std::cerr << "Error opening file: " << path << '\n';
+        return 0;
+    }
+    std::vector<unsigned char> buffer(block_size);
+    std::uint64_t checksum = 0;
+    for (;;) {
+        ssize_t readd = ::read(fd,buffer.data(),static_cast<ssize_t>(buffer.size()));
+        if (readd == 0) break;
+        if (readd == -1) {
+            std::cerr << "Error reading file: " << path << '\n';
+            break;
+        }
+        for (ssize_t i = 0; i < readd; i ++) 
+            checksum += buffer[static_cast<std::size_t>(i)];
+    }
+    ::close(fd);
     return checksum;
 }
 
