@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_library(largeio
     src/file_utils.cpp
+    src/file_read.cpp
 )
 
 target_include_directories(largeio
@@ -46,6 +47,7 @@ enable_testing()
 
 add_executable(largeio_tests
     tests/test_file_utils.cpp
+    tests/test_file_read.cpp
 )
 
 target_link_libraries(largeio_tests

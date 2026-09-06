@@ -1,6 +1,7 @@
 #include <iostream>
 #include <filesystem>
 #include <largeio/file_utils.hpp>
+#include <largeio/file_read.hpp>
 namespace fs = std::filesystem;
 
 signed main(int argc, char **argv) {
@@ -15,5 +16,9 @@ signed main(int argc, char **argv) {
     }
     std::cout << "file: " << path << '\n';
     std::cout << "size: " << fs::file_size(path) << " bytes\n";
+
+
+    //std::cout << "content: \n" << largeio::simplest_read_file(path) << '\n';
+    std::cout << "checksum: " << largeio::checksum_ifstream(path, 1024*1024) << '\n';
     return 0;
 }
