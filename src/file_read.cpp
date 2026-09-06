@@ -55,15 +55,16 @@ std::uint64_t checksum_fd(const fs::path& path, std::size_t block_size) {
         std::cerr << "Error: block_size must be greater than 0.\n";
         return 0;
     }
-    int fd=::open(path.c_str(), O_RDONLY);
-    if (fd == -1) {
+    //int fd=::open(path.c_str(), O_RDONLY);
+    FileDescriptor fd(::open(path.c_str(), O_RDONLY));
+    if (fd.get() == -1) {
         std::cerr << "Error opening file: " << path << '\n';
         return 0;
     }
     std::vector<unsigned char> buffer(block_size);
     std::uint64_t checksum = 0;
     for (;;) {
-        ssize_t readd = ::read(fd,buffer.data(),static_cast<ssize_t>(buffer.size()));
+        ssize_t readd = ::read(fd.get(),buffer.data(),static_cast<ssize_t>(buffer.size()));
         if (readd == 0) break;
         if (readd == -1) {
             std::cerr << "Error reading file: " << path << '\n';
@@ -72,7 +73,7 @@ std::uint64_t checksum_fd(const fs::path& path, std::size_t block_size) {
         for (ssize_t i = 0; i < readd; i ++) 
             checksum += buffer[static_cast<std::size_t>(i)];
     }
-    ::close(fd);
+    ::close(fd.get());
     return checksum;
 }
 
