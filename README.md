@@ -12,10 +12,11 @@
 
 после:
 
-```for file in data/*; do
-    echo "=== $file ==="
-    ./build/largeio_smoke "$file"
-    echo
-done
+```
+    for file in data/*; do
+        echo "=== $file ==="
+        ./build/largeio_smoke "$file"
+        echo
+    done
 ```
 
