@@ -1,7 +1,10 @@
 #include <iostream>
 #include <filesystem>
-#define vec vector
+#include <largeio/file_utils.hpp>
+//#define vec vector
 namespace fs =  std::filesystem;
+
+namespace largeio {
 
 bool is_regular_file(fs::path path) {
 	if (!fs::exists(path) || !fs::is_regular_file(path)) {
@@ -11,7 +14,4 @@ bool is_regular_file(fs::path path) {
 	return 1;
 }
 
-
-signed main(int argc, char **argv) {
-	
 }
