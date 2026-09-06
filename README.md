@@ -7,6 +7,8 @@
 
 ``` python3 scripts/generate_data.py ```
 
+```python3 scripts/generate_data.py --profile bench``` (если хочется с бенчами и файлы по 4 гб)
+
 
 после:
 
