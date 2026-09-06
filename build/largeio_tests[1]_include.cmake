@@ -1,5 +1,0 @@
-if(EXISTS "/Users/boyjayy/Documents/FileRead/build/largeio_tests[1]_tests.cmake")
-  include("/Users/boyjayy/Documents/FileRead/build/largeio_tests[1]_tests.cmake")
-else()
-  add_test(largeio_tests_NOT_BUILT largeio_tests_NOT_BUILT)
-endif()
