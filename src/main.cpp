@@ -1,5 +1,6 @@
 #include <iostream>
 #include <filesystem>
+#include <largeio/file_utils.hpp>
 namespace fs = std::filesystem;
 
 signed main(int argc, char **argv) {
@@ -8,11 +9,10 @@ signed main(int argc, char **argv) {
         return 0;
     }
     fs::path path = argv[1];
-    if (!fs::exists(path) || !fs::is_regular_file(path)) {
+    if (!largeio::is_regular_file(path)) {
         std::cerr << "not a regular file \n";
         return 0;
     }
-
     std::cout << "file: " << path << '\n';
     std::cout << "size: " << fs::file_size(path) << " bytes\n";
     return 0;
