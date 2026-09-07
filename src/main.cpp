@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <largeio/file_utils.hpp>
 #include <largeio/file_read.hpp>
+#include <largeio/benchmark.hpp>
 namespace fs = std::filesystem;
 
 signed main(int argc, char **argv) {
@@ -31,5 +32,8 @@ signed main(int argc, char **argv) {
     //std::cout << "checksum: " << largeio::checksum_fd(path, 1024*1024) << '\n';
 
     //std::cout << "checksum: " << largeio::checksum_mmap(path) << '\n';
+
+
+    largeio::print_benchmark_result(largeio::benchmark_ifstream(path, 1024*1024));
     return 0;
 }

@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(googletest)
 add_library(largeio
     src/file_utils.cpp
     src/file_read.cpp
+    src/benchmark.cpp
 )
 
 target_include_directories(largeio
