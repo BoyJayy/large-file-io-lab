@@ -1,0 +1,10 @@
+file,file_size_bytes,method,block_size_bytes,runs,checksum,min_seconds,median_seconds,max_seconds,median_throughput_mib_s
+"data/small.bin",31,ifstream,4096,7,465,8.666e-06,9.666e-06,1.0375e-05,3.05854581094
+"data/small.bin",31,ifstream,65536,7,465,8.125e-06,9.333e-06,1.05e-05,3.16767425357
+"data/small.bin",31,ifstream,1048576,7,465,1.2125e-05,1.4417e-05,2.2e-05,2.05062799532
+"data/small.bin",31,ifstream,4194304,7,465,2.4291e-05,2.775e-05,0.00021125,1.06536590301
+"data/small.bin",31,posix_read,4096,7,465,6.75e-06,8.333e-06,1.0458e-05,3.54781036945
+"data/small.bin",31,posix_read,65536,7,465,7.166e-06,7.625e-06,8.709e-06,3.87723328637
+"data/small.bin",31,posix_read,1048576,7,465,1.1167e-05,1.3708e-05,1.425e-05,2.1566898022
+"data/small.bin",31,posix_read,4194304,7,465,2.5375e-05,2.9042e-05,3.05e-05,1.01797065659
+"data/small.bin",31,mmap,0,7,465,8.917e-06,1.0917e-05,1.6584e-05,2.70806117144

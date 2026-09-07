@@ -1,39 +1,46 @@
-#include <iostream>
-#include <filesystem>
-#include <fcntl.h>
-#include <unistd.h>
-#include <largeio/file_utils.hpp>
-#include <largeio/file_read.hpp>
 #include <largeio/benchmark.hpp>
+#include <largeio/file_utils.hpp>
+
+#include <filesystem>
+#include <iostream>
+#include <vector>
+
 namespace fs = std::filesystem;
 
-signed main(int argc, char **argv) {
-    if (argc != 2) {
-        std::cerr << "usage: app <file>\n";
-        return 0;
+signed main(int argc, char** argv) {
+    if (argc < 2) {
+        std::cerr << "usage: largeio_smoke <file1> [file2 ...]\n";
+        return 1;
     }
-    fs::path path = argv[1];
-    if (!largeio::is_regular_file(path)) {
-        std::cerr << "not a regular file \n";
-        return 0;
+    try {
+        std::vector<largeio::BenchmarkSummary> all_summaries;
+        for (int i = 1; i < argc; i++) {
+            fs::path path = argv[i];
+            if (!largeio::is_regular_file(path)) {
+                std::cerr << "Error: " << path << " is not a regular file.\n";
+                continue;
+            }
+            std::cout << "\n=== " << path << " ===\n";
+            std::cout << "size: " << fs::file_size(path) << " bytes\n";
+            auto summaries = largeio::run_benchmark_suite(path, 7);
+            std::cout << "\n SUMMARY \n";
+            for (const auto& summary : summaries) {
+                largeio::print_benchmark_summary(summary);
+                std::cout << '\n';
+            }
+            all_summaries.insert(all_summaries.end(), summaries.begin(), summaries.end());
+        }
+        if (!all_summaries.empty()) {
+            fs::create_directories("results");
+            largeio::save_benchmark_summary_csv("results/benchmark_summary.csv", all_summaries);
+            largeio::save_benchmark_raw_csv("results/benchmark_raw.csv", all_summaries);
+            std::cout << "Saved results/benchmark_summary.csv\n";
+            std::cout << "Saved results/benchmark_raw.csv\n";
+        }
     }
-    std::cout << "file: " << path << '\n';
-    std::cout << "size: " << fs::file_size(path) << " bytes\n";
-    //std::cout << "content: \n" << largeio::simplest_read_file(path) << '\n';
-    //std::cout << "checksum: " << largeio::checksum_ifstream(path, 1024*1024) << '\n';
-    /*int fd = ::open(path.c_str(), O_RDONLY);
-    if (fd == -1) {
-        std::cerr << "Error opening file: " << path << '\n';
-    } */
-    //std::cout << fd << '\n';
-
-
-    //::close(fd);
-    //std::cout << "checksum: " << largeio::checksum_fd(path, 1024*1024) << '\n';
-
-    //std::cout << "checksum: " << largeio::checksum_mmap(path) << '\n';
-
-
-    largeio::print_benchmark_result(largeio::benchmark_ifstream(path, 1024*1024));
+    catch (const std::exception& e) {
+        std::cerr << "Benchmark error: " << e.what() << '\n';
+        return 1;
+    }
     return 0;
 }
