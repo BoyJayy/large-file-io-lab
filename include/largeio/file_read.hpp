@@ -2,6 +2,7 @@
 #include <largeio/file_utils.hpp>
 #include <fstream>
 #include <iostream>
+#include <vector>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string>

@@ -1,6 +1,8 @@
 #pragma once
+//#include <cstdio>
 #include <fcntl.h>
 #include <unistd.h>
+#include <utility>
 #include <filesystem>
 namespace fs =  std::filesystem;
 
@@ -36,4 +38,11 @@ namespace largeio {
 
     bool is_regular_file(const fs::path& path);
 
+    std::string get_current_path();
+
+    fs::path get_parent_path (const fs::path& path);
+
+    fs::path get_square_parent_path(const fs::path& path );
+
+    fs::path get_data_path_from_test(); 
 }

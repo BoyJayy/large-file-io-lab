@@ -73,7 +73,7 @@ std::uint64_t checksum_fd(const fs::path& path, std::size_t block_size) {
         for (ssize_t i = 0; i < readd; i ++) 
             checksum += buffer[static_cast<std::size_t>(i)];
     }
-    ::close(fd.get());
+    //::close(fd.get());
     return checksum;
 }
 
