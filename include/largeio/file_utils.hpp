@@ -45,4 +45,6 @@ namespace largeio {
     fs::path get_square_parent_path(const fs::path& path );
 
     fs::path get_data_path_from_test(); 
+
+    fs::path get_test_data_path(const std::string);
 }

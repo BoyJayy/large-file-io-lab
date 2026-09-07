@@ -26,7 +26,7 @@ fs::path get_data_path_from_test() {
 }
 
 fs::path get_test_data_path(const std::string filename) {
-    return get_parent_path(get_current_path()) / "test_data" / filename;
+    return get_square_parent(get_current_path()) / "tests" / "test_data" / filename;
 }
 
 }
