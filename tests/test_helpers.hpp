@@ -8,7 +8,7 @@ namespace test_helpers {
 namespace fs = std::filesystem;
 
 inline fs::path project_root() {
-    return fs::path{LARGEIO_SOURCE_DIR};
+    return fs::path{__FILE__}.parent_path().parent_path();
 }
 
 inline fs::path data_path(std::string_view filename) {
