@@ -27,4 +27,32 @@ BenchmarkResult benchmark_ifstream(const std::filesystem::path& path,std::size_t
     return result;
 }
 
+BenchmarkResult benchmark_fd(const fs::path& path, std::size_t block_size) {
+    BenchmarkResult result;
+    result.method = "posix_read";
+    result.file_size = fs::file_size(path);
+    result.block_size = block_size;
+    auto start = std::chrono::steady_clock::now();
+    result.checksum = checksum_fd(path, block_size);
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    result.seconds = elapsed.count();
+    result.throughput_mib_s = static_cast<double>(result.file_size) / (1024.0 * 1024.0) / result.seconds;
+    return result;
+}
+
+BenchmarkResult benchmark_mmap(const fs::path& path) {
+    BenchmarkResult result;
+    result.method = "mmap";
+    result.file_size = fs::file_size(path);
+    result.block_size = 0;
+    auto start = std::chrono::steady_clock::now();
+    result.checksum = checksum_mmap(path);
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    result.seconds = elapsed.count();
+    result.throughput_mib_s = static_cast<double>(result.file_size) / (1024.0 * 1024.0) / result.seconds;
+    return result;
+}
+
 }
