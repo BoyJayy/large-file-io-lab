@@ -3,6 +3,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <utility>
+#include <sys/stat.h>
+#include <sys/mman.h>
 #include <filesystem>
 namespace fs =  std::filesystem;
 

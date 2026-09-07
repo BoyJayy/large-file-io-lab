@@ -28,7 +28,8 @@ signed main(int argc, char **argv) {
 
 
     //::close(fd);
+    //std::cout << "checksum: " << largeio::checksum_fd(path, 1024*1024) << '\n';
 
-    std::cout << "checksum: " << largeio::checksum_fd(path, 1024*1024) << '\n';
+    std::cout << "checksum: " << largeio::checksum_mmap(path) << '\n';
     return 0;
 }

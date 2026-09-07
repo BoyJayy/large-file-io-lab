@@ -56,6 +56,11 @@ target_link_libraries(largeio_tests
         largeio
 )
 
+target_compile_definitions(largeio_tests
+    PRIVATE
+    LARGEIO_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
 include(GoogleTest)
 
 gtest_discover_tests(largeio_tests)

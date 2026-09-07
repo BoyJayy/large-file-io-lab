@@ -19,4 +19,7 @@ std::uint64_t checksum_ifstream(const fs::path& filename, std::size_t block_size
 //posix file descriptor checksum read
 std::uint64_t checksum_fd(const fs::path& filename, std::size_t block_size);
 
+//mmap 
+std::uint64_t checksum_mmap(const fs::path& filename);
+
 }
