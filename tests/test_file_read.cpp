@@ -56,22 +56,12 @@ TEST(FileReadTest, HandlesPartialFinalBlock) {
     EXPECT_EQ(checksum_fd(path, 8),expected);
 }
 
-
-// ------------------------------------------------------------
-// Buffer больше самого файла
-// ------------------------------------------------------------
-
 TEST(FileReadTest, BufferCanBeLargerThanFile) {
     const auto path = test_helpers::data_path("small.bin");
     constexpr std::uint64_t expected = 465;
     EXPECT_EQ(checksum_ifstream(path, 4096),expected );
     EXPECT_EQ(checksum_fd(path, 4096),expected);
 }
-
-
-// ------------------------------------------------------------
-// Результат не должен зависеть от block_size
-// ------------------------------------------------------------
 
 TEST(FileReadTest, ChecksumDoesNotDependOnBlockSize) {
     const auto path =test_helpers::data_path("small.bin");
