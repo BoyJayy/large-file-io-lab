@@ -5,18 +5,14 @@
 
 на маке: 
 
-``` python3 scripts/generate_data.py ```
-
-```python3 scripts/generate_data.py --profile bench``` (если хочется с бенчами и файлы по 4 гб)
-
+```python3 scripts/generate_data.py --profile bench```
 
 после:
 
 ```
-    for file in data/*; do
-        echo "=== $file ==="
-        ./build/largeio_smoke "$file"
-        echo
-    done
+    cmake −S . −B build−release −DCMAKE_BUILD_TYPE=Release
+    cmake −−build build−release −j
+    ./build−release/largeio_smoke data/100MiB.bin data/256MiB.bin \
+    data/1GiB.bin data/4GiB.bin
 ```
 
